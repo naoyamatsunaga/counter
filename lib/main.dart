@@ -21,13 +21,6 @@ class MyApp extends StatelessWidget {
 }
 
 class _MyHomePage extends StatelessWidget {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    // setStateがないと再描画されない
-    _counter++;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
