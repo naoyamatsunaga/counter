@@ -36,12 +36,33 @@ class _MyHomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const Text(
-                'You have pushed the button this many times:',
+                'Consumerを使用した更新方法',
               ),
               // providerでは、Consumerが適用されたものだけを再ビルドすることができる
+              // Consumerで囲む他に４種類書き方がある
               Consumer<CountModel>(builder: (context, model, child) {
                 return Text(
                   '${model.counter}',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                );
+              }),
+              const Text(
+                'Provider.of<CountModel>(context);を使用した更新方法',
+              ),
+              Builder(builder: (context) {
+                final model2 = Provider.of<CountModel>(context);
+                return Text(
+                  '${model2.counter}',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                );
+              }),
+              const Text(
+                'context.watch<CountModel>();を使用した更新方法',
+              ),
+              Builder(builder: (context) {
+                final model3 = context.watch<CountModel>();
+                return Text(
+                  '${model3.counter}',
                   style: Theme.of(context).textTheme.headlineMedium,
                 );
               }),
@@ -49,15 +70,18 @@ class _MyHomePage extends StatelessWidget {
           ),
         ),
         floatingActionButton: Builder(builder: (context) {
-          return Consumer<CountModel>(builder: (context, model, child) {
-            return FloatingActionButton(
-              onPressed: () {
-                model.incrementCounter();
-              },
-              tooltip: 'Increment',
-              child: const Icon(Icons.add),
-            );
-          });
+          //return Consumer<CountModel>(builder: (context, model, child) {
+          // Consumerで囲む以外の方法
+          // count_modelにアクセスしたいだけなので、readで良い（watchでも動きはする）
+          final model = context.read<CountModel>();
+          return FloatingActionButton(
+            onPressed: () {
+              model.incrementCounter();
+            },
+            tooltip: 'Increment',
+            child: const Icon(Icons.add),
+          );
+          //}),
         }),
       ),
     );
