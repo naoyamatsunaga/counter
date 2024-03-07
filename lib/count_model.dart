@@ -6,6 +6,7 @@ class CountModel extends ChangeNotifier {
 
   void incrementCounter() {
     counter++;
+    // StateFullWidgetでいうSetStateの役割
     notifyListeners();
   }
 }
