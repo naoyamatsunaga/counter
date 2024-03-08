@@ -66,6 +66,19 @@ class _MyHomePage extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineMedium,
                 );
               }),
+              // 宿題
+              const Text(
+                'context.select<CountModel, int>();を使用した更新方法',
+              ),
+              Builder(builder: (context) {
+                final count2 = context.select<CountModel, int>(
+                  (CountModel model) => model.counter2,
+                );
+                return Text(
+                  '$count2',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                );
+              }),
             ],
           ),
         ),
@@ -74,12 +87,25 @@ class _MyHomePage extends StatelessWidget {
           // Consumerで囲む以外の方法
           // count_modelにアクセスしたいだけなので、readで良い（watchでも動きはする）
           final model = context.read<CountModel>();
-          return FloatingActionButton(
-            onPressed: () {
-              model.incrementCounter();
-            },
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              FloatingActionButton(
+                onPressed: () {
+                  model.incrementCounter1();
+                },
+                tooltip: 'Increment 1',
+                child: const Icon(Icons.add),
+              ),
+              // 宿題
+              FloatingActionButton(
+                onPressed: () {
+                  model.incrementCounter2();
+                },
+                tooltip: 'Increment 10',
+                child: const Icon(Icons.add),
+              ),
+            ],
           );
           //}),
         }),
